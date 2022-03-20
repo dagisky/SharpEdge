@@ -5,7 +5,10 @@ import com.sharpEdge.UserService.dto.CustomerResponse;
 import com.sharpEdge.UserService.service.CustomerService;
 import com.sharpEdge.clients.notification.NotificationRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -29,8 +32,8 @@ public class CustomerController {
     }
 
     @GetMapping("/{username}")
-    public CustomerResponse getUser(@PathVariable("username") String username){
-        return customerService.getUserByUsername(username);
+    public ResponseEntity<CustomerResponse> getUser(@PathVariable("username") String username){
+        return new ResponseEntity<CustomerResponse>(customerService.getUserByUsername(username), HttpStatus.OK) ;
     }
 
     @PostMapping("/notification")
